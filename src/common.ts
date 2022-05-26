@@ -14,10 +14,10 @@ export function handleUpload(formFile:FormData) {
   const selectedRecordsId = getIdFromForm('selectCheckbox');
   const numRecords = selectedRecordsId.length;
 
-  uploadFile(numRecords, formFile)
-    .then(fileKeyList => {
+  // uploadFile(numRecords, formFile)
+  //   .then(fileKeyList => {
 
-    });
+  //   });
 
 }
 
@@ -43,7 +43,7 @@ function prepareRequest(numRecords:number, fileKeyList:any[string], selectedReco
   };
   fileKeyList.forEach(fileKey => {
     requestBody.records.push();
-  })
+  });
 
 }
 
