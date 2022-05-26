@@ -2,8 +2,8 @@
 import {Dialog} from 'kintone-ui-component/lib/dialog';
 import {Button} from 'kintone-ui-component';
 import {selectAll} from '../common';
+import {htmlEncode} from '../ultility';
 import {CANCEL_BUTTON_TEXT, UPLOAD_BUTTON_TEXT} from '../constant';
-
 
 // Create a new instance of Dialog
 const newSelectRecordsDialog = new Dialog();
@@ -15,21 +15,21 @@ function createBodyContent(records) {
     tableContent += `
       <tr>
         <td><input type="checkbox" name="selectCheckbox" value="${record.$id.value}"></td>
-        <td>${record.Record_number.value}</td>
-        <td>${record.firstName.value}</td>
-        <td>${record.lastName.value}</td>
+        <td>${htmlEncode(record.Record_number.value)}</td>
+        <td>${htmlEncode(record.firstName.value)}</td>
+        <td>${htmlEncode(record.lastName.value)}</td>
       </tr>
     `;
   });
   const userTable = `
     <form id="select-users-form">
       <table>
-        <tr>
-          <th> <input type="checkbox" id="selectAll" /> </th>
-          <th> Record Number </th>
-          <th> First Name </th>
-          <th> Last Name </th>
-        </tr>
+          <tr>
+            <th> <input type="checkbox" id="selectAll" /> </th>
+            <th> Record Number </th>
+            <th> First Name </th>
+            <th> Last Name </th>
+          </tr>
         ${tableContent}
       </table>
     </form>
@@ -60,11 +60,13 @@ function createFooterContent() {
   const footerContent = document.createElement('div');
   const cancelBtn = new Button({
     text: CANCEL_BUTTON_TEXT,
-    type: 'normal'
+    type: 'normal',
+    className: 'selectDialog-button'
   });
   const uploadBtn = new Button({
     text: UPLOAD_BUTTON_TEXT,
-    type: 'submit'
+    type: 'submit',
+    className: 'selectDialog-button'
   });
   footerContent.appendChild(cancelBtn);
   footerContent.appendChild(uploadBtn);
