@@ -58,6 +58,8 @@ function createBodyContent(records) {
 
 function createFooterContent() {
   const footerContent = document.createElement('div');
+  footerContent.style.display = 'flex';
+  footerContent.style.justifyContent = 'center';
   const cancelBtn = new Button({
     text: CANCEL_BUTTON_TEXT,
     type: 'normal',
