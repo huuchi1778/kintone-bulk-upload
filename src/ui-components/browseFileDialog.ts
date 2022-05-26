@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {Dialog} from 'kintone-ui-component/lib/dialog';
 import {Button} from 'kintone-ui-component';
 import {CANCEL_BUTTON_TEXT, NEXT_BUTTON_TEXT} from '../constant';
@@ -32,12 +33,15 @@ function createFooterContent() {
   footerContent.appendChild(cancelBtn);
   footerContent.appendChild(nextBtn);
   cancelBtn.addEventListener('click', () => {
-    const cancelBtnClickEvent = new Event('kintone-bulk-upload:browse-file-dialog-cancel-click');
-    document.dispatchEvent(cancelBtnClickEvent);
+    document.dispatchEvent(new Event('kintone-bulk-upload:browse-file-dialog-cancel-click'));
   });
   nextBtn.addEventListener('click', _ => {
-    const nextBtnClickEvent = new Event('kintone-bulk-upload:browse-file-dialog-next-click');
-    document.dispatchEvent(nextBtnClickEvent);
+    const fileInput = document.getElementById('browse-file-input');
+    if (fileInput.value !== '') {
+      document.dispatchEvent(new Event('kintone-bulk-upload:browse-file-dialog-next-click'));
+    } else {
+      fileInput.style.border = '1px solid red';
+    }
   });
   return footerContent;
 }

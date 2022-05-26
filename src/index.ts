@@ -1,7 +1,7 @@
 import {bulkUploadBtn} from './ui-components/bulkUploadBtn';
 import {browseFileDialog} from './ui-components/browseFileDialog';
 import {selectRecordsDialog} from './ui-components/selectRecordsDialog';
-import {getFile, handleUpload, getRecords} from './common';
+import {getFile, handleUpload} from './common';
 import {successNotify} from './ui-components/successNotify';
 import {loadingSpinner} from './ui-components/loadingSpinner';
 
@@ -16,8 +16,7 @@ kintone.events.on('app.record.index.show', event => {
   });
 
   document.addEventListener('kintone-bulk-upload:browse-file-dialog-next-click', async _ => {
-    const records = await getRecords();
-    selectRecordsDialog(records);
+    selectRecordsDialog(event.records);
   });
 
   document.addEventListener('kintone-bulk-upload:select-records-dialog-upload-click', _ => {
