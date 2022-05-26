@@ -99,3 +99,17 @@ export function getFile() {
   return formFile;
 }
 
+export function getRecords() {
+  return new kintone.Promise((resolve, reject) => {
+    const request = {
+      'app': kintone.app.getId(),
+      'query': 'order by $id asc limit 100 offset 0',
+      'fields': ['$id', 'Record_number', 'firstName', 'lastName']
+    };
+    kintone.api(kintone.api.url(RECORDS_UPDATE_PATH, true), 'GET', request, (response:object) => {
+      resolve(response.records);
+    }, (error:object) => {
+      reject(error);
+    });
+  });
+}

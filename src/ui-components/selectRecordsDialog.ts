@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {Dialog} from 'kintone-ui-component/lib/dialog';
 import {Button} from 'kintone-ui-component';
 import {selectAll} from '../common';
@@ -91,5 +92,5 @@ export function selectRecordsDialog(records:object) {
   });
   newSelectRecordsDialog.open();
   document.getElementById('selectAll').addEventListener('click', selectAll);
-
 }
+
