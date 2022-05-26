@@ -12,19 +12,13 @@ export function selectAll() {
 
 export function handleUpload(formFile:FormData) {
   const selectedRecordsId = getIdFromForm('selectCheckbox');
-  uploadFileToRecord(selectedRecordsId, formFile) // use update RECORDS api
-    .then(myPromises => {
-      return Promise.all(myPromises);
-    })
-    .then(_ => {
-      const successEvent = new Event('kintone-bulk-upload:bulk-upload-success');
-      document.dispatchEvent(successEvent);
-    })
-    .catch(error => {
-      const errorEvent = new Event('kintone-bulk-upload:bulk-upload-error');
-      document.dispatchEvent(errorEvent);
-      errorNotify(error.message);
+  const numRecords = selectedRecordsId.length;
+
+  uploadFile(numRecords, formFile)
+    .then(fileKeyList => {
+
     });
+
 }
 
 function getIdFromForm(elName: string) {
@@ -42,18 +36,39 @@ function getIdFromForm(elName: string) {
   return selectedRecordsId;
 }
 
-function uploadFileToRecord(recordsId, formFile) {
+function prepareRequest(numRecords:number, fileKeyList:any[string], selectedRecordsId) {
+  const requestBody = {
+    'app': kintone.app.getId(),
+    'records': []
+  };
+  fileKeyList.forEach(fileKey => {
+    requestBody.records.push();
+  })
+
+}
+
+function uploadFile(numRecords:number, formFile:FormData) {
+  const fileKeyList = [];
   return new kintone.Promise((resolve, reject) => {
-    const myPromises = [];
-    recordsId.forEach(id => {
-      uploadFile(formFile)
-        .then(fileKey => {
-          myPromises.push(attachFile(fileKey, ATTACHMENT_FIELDCODE, id));
-          if (myPromises.length === recordsId.length) {
-            resolve(myPromises);
-          }
-        });
-    });
+    const thisFormFile = formFile;
+    for (let i = 0; i < numRecords; i++) {
+      thisFormFile.append('__REQUEST_TOKEN__', kintone.getRequestToken());
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', kintone.api.url(FILE_UPLOAD_PATH, true));
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhr.responseType = 'json';
+      xhr.onload = function() {
+        if (xhr.status > 300) {
+          reject(xhr.status);
+        }
+        fileKeyList.push(xhr.response.fileKey);
+      };
+      xhr.send(thisFormFile);
+
+      if (fileKeyList.length === numRecords) {
+        resolve(fileKeyList);
+      }
+    }
   });
 }
 
@@ -64,40 +79,3 @@ export function getFile() {
   return formFile;
 }
 
-function uploadFile(formFile: FormData) {
-  return new kintone.Promise((resolve, reject) => {
-    const thisFormFile = formFile;
-    thisFormFile.append('__REQUEST_TOKEN__', kintone.getRequestToken());
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', kintone.api.url(FILE_UPLOAD_PATH, true));
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      if (xhr.status > 300) {
-        const errorEvent = new Event('kintone-bulk-upload:bulk-upload-error');
-        document.dispatchEvent(errorEvent);
-        errorNotify(xhr.status);
-        reject();
-      }
-      resolve(xhr.response.fileKey);
-    };
-    xhr.send(thisFormFile);
-  });
-}
-
-function attachFile(fileKey: string, FIELDCODE: string, recordId: number) {
-  const requestBody = {
-    'app': kintone.app.getId(),
-    'id': recordId,
-    'record': {
-      [FIELDCODE]: {
-        'value': [
-          {
-            'fileKey': fileKey
-          }
-        ]
-      }
-    }
-  };
-  return kintone.api(kintone.api.url(RECORD_UPDATE_PATH, true), 'PUT', requestBody);
-}
