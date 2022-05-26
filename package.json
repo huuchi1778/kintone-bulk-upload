@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "b": "webpack --mode production",
+    "webpack:build": "webpack --mode production",
     "eslint": "eslint ./src/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

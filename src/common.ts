@@ -11,18 +11,8 @@ export function selectAll() {
 }
 
 export function handleUpload(formFile:FormData) {
-  const checkBoxes = document.getElementsByName('selectCheckbox'); //separate function 
-  const selectedRecordsIdStr = [];
-  Array.from(checkBoxes).forEach(checkbox => {
-    if (checkbox.checked) {
-      selectedRecordsIdStr.push(checkbox.value);
-    }
-  });
-  // Convert array elements to number => we use this selectedRecordsId to upload
-  const selectedRecordsId = selectedRecordsIdStr.map(el => {
-    return parseInt(el, 10);
-  });
-  uploadFileToRecord(selectedRecordsId, formFile) //use update RECORDS api
+  const selectedRecordsId = getIdFromForm('selectCheckbox');
+  uploadFileToRecord(selectedRecordsId, formFile) // use update RECORDS api
     .then(myPromises => {
       return Promise.all(myPromises);
     })
@@ -35,6 +25,21 @@ export function handleUpload(formFile:FormData) {
       document.dispatchEvent(errorEvent);
       errorNotify(error.message);
     });
+}
+
+function getIdFromForm(elName: string) {
+  const checkBoxes = document.getElementsByName(elName);
+  const selectedRecordsIdStr = [];
+  Array.from(checkBoxes).forEach(checkbox => {
+    if (checkbox.checked) {
+      selectedRecordsIdStr.push(checkbox.value);
+    }
+  });
+  // Convert array elements to number
+  const selectedRecordsId = selectedRecordsIdStr.map(el => {
+    return parseInt(el, 10);
+  });
+  return selectedRecordsId;
 }
 
 function uploadFileToRecord(recordsId, formFile) {
