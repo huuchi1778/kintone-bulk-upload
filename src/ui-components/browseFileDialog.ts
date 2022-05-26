@@ -1,5 +1,6 @@
 import {Dialog} from 'kintone-ui-component/lib/dialog';
 import {Button} from 'kintone-ui-component';
+import {CANCEL_BUTTON_TEXT, NEXT_BUTTON_TEXT} from '../constant';
 
 // Create a new instance of Dialog
 const newBrowseFilDialog = new Dialog();
@@ -21,11 +22,11 @@ function createBodyContent() {
 function createFooterContent() {
   const footerContent = document.createElement('div');
   const cancelBtn = new Button({
-    text: 'Cancel',
+    text: CANCEL_BUTTON_TEXT,
     type: 'normal'
   });
   const nextBtn = new Button({
-    text: 'Next',
+    text: NEXT_BUTTON_TEXT,
     type: 'submit'
   });
   footerContent.appendChild(cancelBtn);

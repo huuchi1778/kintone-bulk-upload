@@ -1,6 +1,7 @@
 import {Dialog} from 'kintone-ui-component/lib/dialog';
 import {Button} from 'kintone-ui-component';
 import {selectAll} from '../common';
+import {CANCEL_BUTTON_TEXT, UPLOAD_BUTTON_TEXT} from '../constant';
 
 
 // Create a new instance of Dialog
@@ -57,11 +58,11 @@ function createBodyContent(records) {
 function createFooterContent() {
   const footerContent = document.createElement('div');
   const cancelBtn = new Button({
-    text: 'Cancel',
+    text: CANCEL_BUTTON_TEXT,
     type: 'normal'
   });
   const uploadBtn = new Button({
-    text: 'Upload',
+    text: UPLOAD_BUTTON_TEXT,
     type: 'submit'
   });
   footerContent.appendChild(cancelBtn);
