@@ -36,7 +36,7 @@ Under the heading ```Upload Javascript for PC```, click ```Add File``` and selec
 - Chrome PC
 
 # Limitation
-- The maximum number of records can be shown in the dialog is 100; therefore, it is important that you set the approriate filters so the records you want to upload to are shown in the list view which are then shown in the bulk upload dialog.
+- The maximum number of records can be shown in the dialog is 100; therefore, it is important that you set the appropriate filters so the records you want to upload into are shown in the index record list view which are then shown in the bulk upload dialog.
 - The maximum number of records you can upload to is 100 at a time. 
 
 
