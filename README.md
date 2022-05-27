@@ -1,18 +1,18 @@
 # kintone: Bulk Upload Customization
 # Table of Contents
 - [Overview](#overview)
-- [Installation](#installation)
+- [How to build](#how-to-build)
 - [Usage](#usage)
 - [Browser support](#browser-support)
 - [Limitations](#limitations)
 # Overview
 This customization allows users to upload a file into multiple records with just a few steps.
-# Installation
+# How to build
 You can clone this repository to your local machine by running this command:
 ```
 git clone https://github.com/huuchi1778/kintone-bulk-upload.git
 ```
-Once this repository is cloned into your machine, there will the ```bundle.min.js``` file in the ```dist``` folder. You can use this file to import to your app.<br>
+Once this repository is cloned into your machine, there will be the ```bundle.min.js``` file in the ```dist``` folder. You can use this file to import to your app.<br>
 If you choose to modify the source code, you will need to install the neccessary depenecies to rebuild the ```bundle.min.js``` file by running this command:
 ```
 npm install
