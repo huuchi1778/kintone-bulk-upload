@@ -1,4 +1,5 @@
 import {Notification} from 'kintone-ui-component';
+import {ERROR_NOTIFY_TEXT} from '../constant';
 const newErrorNotify = new Notification({
   type: 'danger',
   className: '',
@@ -6,7 +7,7 @@ const newErrorNotify = new Notification({
 });
 
 export function errorNotify(error_message:string) {
-  newErrorNotify.text = `Failed to upload file.\nError message: ${error_message}`;
+  newErrorNotify.text = `${ERROR_NOTIFY_TEXT} ${error_message}`;
   newErrorNotify.open();
 }
 

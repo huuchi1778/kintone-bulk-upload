@@ -1,7 +1,7 @@
 // @ts-nocheck
 import {Dialog} from 'kintone-ui-component/lib/dialog';
 import {Button} from 'kintone-ui-component';
-import {CANCEL_BUTTON_TEXT, NEXT_BUTTON_TEXT} from '../constant';
+import {CANCEL_BUTTON_TEXT, NEXT_BUTTON_TEXT, BROWSE_FILE_DIALOG_TEXT} from '../constant';
 
 // Create a new instance of Dialog
 const newBrowseFilDialog = new Dialog();
@@ -48,7 +48,7 @@ function createFooterContent() {
 
 export function browseFileDialog() {
   // Create dialog
-  newBrowseFilDialog.title = 'Browse File';
+  newBrowseFilDialog.title = BROWSE_FILE_DIALOG_TEXT;
   newBrowseFilDialog.content = createBodyContent();
   newBrowseFilDialog.footer = createFooterContent();
   document.addEventListener('kintone-bulk-upload:browse-file-dialog-cancel-click', _ => {

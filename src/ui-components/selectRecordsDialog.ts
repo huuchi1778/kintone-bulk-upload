@@ -3,7 +3,7 @@ import {Dialog} from 'kintone-ui-component/lib/dialog';
 import {Button} from 'kintone-ui-component';
 import {selectAll} from '../common';
 import {htmlEncode} from '../ultility';
-import {CANCEL_BUTTON_TEXT, UPLOAD_BUTTON_TEXT} from '../constant';
+import {CANCEL_BUTTON_TEXT, UPLOAD_BUTTON_TEXT, SELECT_RECORDS_DIALOG_TEXT} from '../constant';
 
 // Create a new instance of Dialog
 const newSelectRecordsDialog = new Dialog();
@@ -85,7 +85,7 @@ function createFooterContent() {
 
 export function selectRecordsDialog(records:object) {
   // Create dialog
-  newSelectRecordsDialog.title = 'Select Records';
+  newSelectRecordsDialog.title = SELECT_RECORDS_DIALOG_TEXT;
   newSelectRecordsDialog.content = createBodyContent(records);
   newSelectRecordsDialog.footer = createFooterContent();
   document.addEventListener('kintone-bulk-upload:select-records-dialog-cancel-click', _ => {

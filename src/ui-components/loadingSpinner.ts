@@ -1,13 +1,13 @@
 import {Spinner} from 'kintone-ui-component';
+import {SPINNER_TEXT} from '../constant';
 
 const newLoadingSpinner = new Spinner({
-  text: 'Uploading...'
+  text: SPINNER_TEXT
 });
 
 export function loadingSpinner() {
   document.addEventListener('kintone-bulk-upload:select-records-dialog-upload-click', _ => {
     newLoadingSpinner.open();
-    // console.log('hi from spinner');
   });
   document.addEventListener('kintone-bulk-upload:bulk-upload-success', _ => {
     newLoadingSpinner.close();
