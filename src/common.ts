@@ -66,7 +66,7 @@ function prepareRequest(fileKeyList:any[string], selectedRecordsId:any[number], 
 }
 
 function getFileKeyList(numRecords:number, formFile:FormData) {
-  return new kintone.Promise((resolve, reject) => {
+  return new kintone.Promise((resolve: Promise, reject: Promise)=> {
     const fileKeyList = [];
     const thisFormFile = formFile;
     for (let i = 0; i < numRecords; i++) {
